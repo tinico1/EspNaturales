@@ -1,14 +1,14 @@
 package android.example.espnaturales;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.example.espnaturales.Datos.EspNatDbAccess;
+import android.example.espnaturales.Datos.StringWithTag;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -18,9 +18,11 @@ public class MainActivity extends AppCompatActivity {
     Spinner spnComunidades;
     Spinner spnTipos;
     EspNatDbAccess dbAccess;
-  //  EditText txtResult;
 
-
+    final static String TIPO = "TIPO";
+    final static String REGION = "REGION";
+    private int mRegion = 0;
+    private int mTipoEspacio = 0;
 
     void fillSpnTipos(EspNatDbAccess dbAccess, int idComunidad) {
         List<StringWithTag> list;
@@ -35,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 StringWithTag str = (StringWithTag) spnTipos.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), str.getString(), Toast.LENGTH_LONG).show();
+
+                mTipoEspacio = str.getId();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getApplicationContext(), "NOT selection", Toast.LENGTH_LONG).show();
+
+                mTipoEspacio = 0;
             }
         });
     }
@@ -59,14 +63,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 StringWithTag str = (StringWithTag) spnComunidades.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), str.getString(), Toast.LENGTH_LONG).show();
-               fillSpnTipos( dbAccess, str.getId());
+                mRegion = str.getId();
+                fillSpnTipos(dbAccess, mRegion);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Toast.makeText(getApplicationContext(), "NOT selection", Toast.LENGTH_LONG).show();
-               fillSpnTipos( dbAccess, 0);
+                mRegion = 0;
+                fillSpnTipos(dbAccess, mRegion);
             }
         });
 
@@ -91,5 +96,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         dbAccess.close();
         super.onDestroy();
+    }
+
+    public void actSearch(View view) {
+        Intent intent = new Intent(this, ListaEspacios.class);
+        intent.putExtra(REGION, mRegion);
+        intent.putExtra(TIPO, mTipoEspacio);
+        startActivity(intent);
     }
 }

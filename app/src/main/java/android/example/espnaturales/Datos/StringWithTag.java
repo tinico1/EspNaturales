@@ -1,6 +1,6 @@
-package android.example.espnaturales;
+package android.example.espnaturales.Datos;
 
-class StringWithTag {
+public class StringWithTag {
     private String string;
     private int id;
 

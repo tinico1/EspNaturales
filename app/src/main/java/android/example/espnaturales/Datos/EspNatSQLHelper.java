@@ -1,8 +1,7 @@
-package android.example.espnaturales;
+package android.example.espnaturales.Datos;
 
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
