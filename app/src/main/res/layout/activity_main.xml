@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
     tools:context=".MainActivity">
 
     <TextView
@@ -14,21 +15,22 @@
         android:layout_marginTop="16dp"
         android:text="@string/str_comunidades"
         android:textSize="14sp"
+
         app:layout_constraintStart_toStartOf="@+id/spnComunidades"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <Spinner
         android:id="@+id/spnComunidades"
-        android:layout_width="398dp"
-        android:layout_height="57dp"
+        style="@style/spinner_style"
+        android:layout_width="389dp"
+        android:layout_height="58dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        style="@style/spinner_style"
         app:layout_constraintTop_toBottomOf="@+id/txtComunidades" />
 
     <TextView
@@ -44,10 +46,11 @@
     <Spinner
         android:id="@+id/spinnerTipos"
         style="@style/spinner_style"
-        android:layout_height="57dp"
+        android:layout_width="395dp"
+        android:layout_height="59dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/spnComunidades"
         app:layout_constraintStart_toStartOf="@+id/spnComunidades"
         app:layout_constraintTop_toBottomOf="@+id/textTipos" />
 

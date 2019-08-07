@@ -59,7 +59,7 @@ public class EspNatDbAccess {
                     "tt.NOM_TIPO_RERB \n" +
                     "FROM R_COM_ESP tr, \n" +
                     "T_ESPACIO te, \n" +
-                    "T_TIPO_RERB tt WHERE tr.MAB_CODE = te.COD_ESPACIO AND tt.COD_TIPO_RERB = te.COD_TIPO_RERB AND tr.CODIGO = " + idcomunidad +
+                    "T_TIPO_RERB tt WHERE tr.COD_ESPACIO = te.COD_ESPACIO AND tt.COD_TIPO_RERB = te.COD_TIPO_RERB AND tr.COD_COMUNIDAD = " + idcomunidad +
                     " order by tt.COD_TIPO_RERB";
         } else {
             sql =   "SELECT DISTINCT tp.COD_TIPO_RERB, tp.NOM_TIPO_RERB FROM  T_TIPO_RERB  tp";
@@ -67,9 +67,10 @@ public class EspNatDbAccess {
 
         List<StringWithTag> list =  new ArrayList<StringWithTag>();
         c = db.rawQuery(sql, new String[]{});
-        StringWithTag string = new StringWithTag("", 0);
+        StringWithTag stringWithTag = new StringWithTag("", 0);
+        list.add(stringWithTag);
         while (c.moveToNext()) {
-            StringWithTag stringWithTag = new StringWithTag(c.getString(1), c.getInt(0));
+            stringWithTag = new StringWithTag(c.getString(1), c.getInt(0));
             list.add(stringWithTag);
         }
         return list;
@@ -79,13 +80,13 @@ public class EspNatDbAccess {
         String sql;
 
         if ((idcomunidad != 0) && (idtipo != 0)) {
-            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB  FROM T_ESPACIO esp, R_COM_ESP rcom WHERE esp.COD_TIPO_RERB = " + idtipo + " and rcom.CODIGO = " + idcomunidad + " and rcom.MAB_CODE = esp.COD_ESPACIO";
+            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, esp.NOM_IMAGEN FROM T_ESPACIO esp, R_COM_ESP rcom WHERE esp.COD_TIPO_RERB = " + idtipo + " and rcom.COD_COMUNIDAD = " + idcomunidad + " and rcom.COD_ESPACIO = esp.COD_ESPACIO";
         } else if ((idcomunidad != 0) && (idtipo == 0)) {
-            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB  FROM T_ESPACIO esp, R_COM_ESP rcom WHERE  rcom.CODIGO = " + idcomunidad + "and rcom.MAB_CODE = esp.COD_ESPACIO";
+            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, esp.NOM_IMAGEN FROM T_ESPACIO esp, R_COM_ESP rcom WHERE  rcom.COD_COMUNIDAD = " + idcomunidad + " and rcom.COD_ESPACIO = esp.COD_ESPACIO";
         } else if ((idcomunidad == 0) && (idtipo != 0)) {
-            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB  FROM T_ESPACIO esp  WHERE esp.COD_TIPO_RERB = " + idtipo;
+            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, esp.NOM_IMAGEN  FROM T_ESPACIO esp  WHERE esp.COD_TIPO_RERB = " + idtipo;
         } else {
-            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB  FROM T_ESPACIO esp ";
+            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, esp.NOM_IMAGEN  FROM T_ESPACIO esp ";
         }
 
 
@@ -93,10 +94,29 @@ public class EspNatDbAccess {
         c = db.rawQuery(sql, new String[]{});
 
         while (c.moveToNext()) {
-            EspacioNatural espacioNatural = new EspacioNatural(c.getInt(0), c.getString(1), c.getInt(2), "CREAR DESCRIPCION");
+
+            EspacioNatural espacioNatural = new EspacioNatural(c.getInt(0),
+                    c.getString(1),
+                    c.getInt(2),
+                    c.getString(3),
+                    c.getString(3),
+                    c.getString(4));
             list.add(espacioNatural);
         }
         return list;
 
+    }
+
+    public EspacioNatural getSetdescription(EspacioNatural espacioNatural) {
+        String des = espacioNatural.getDescription();
+
+        if (des == null) {
+            String sql = "SELECT  esp.DESC_ESPACIO FROM T_ESPACIO esp  WHERE esp.COD_ESPACIO = " + espacioNatural.getId();
+            c = db.rawQuery(sql, new String[]{});
+            while (c.moveToNext() && (espacioNatural.getDescription() == null)) {
+                espacioNatural.setDescription(c.getString(0));
+            }
+        }
+        return espacioNatural;
     }
 }

@@ -49,5 +49,5 @@
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@color/medium_grey"
         android:textSize="@dimen/list_body"
-        tools:text="DESC />
+        tools:text="DESC " />
 </RelativeLayout>
