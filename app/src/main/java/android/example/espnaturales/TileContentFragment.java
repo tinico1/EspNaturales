@@ -19,10 +19,10 @@ package android.example.espnaturales;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -53,6 +53,7 @@ public class TileContentFragment extends Fragment {
         int tilePadding = getResources().getDimensionPixelSize(R.dimen.tile_padding);
         recyclerView.setPadding(tilePadding, tilePadding, tilePadding, tilePadding);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
         return recyclerView;
     }
 
@@ -87,18 +88,19 @@ public class TileContentFragment extends Fragment {
         // Set numbers of Tiles in RecyclerView.
         private static final int LENGTH = 18;
 
-        private final Drawable[] mPlacePictures;
 
         public ContentAdapter(Context context) {
 
             Resources resources = context.getResources();
 
+  /*
             TypedArray a = resources.obtainTypedArray(R.array.places_picture);
             mPlacePictures = new Drawable[a.length()];
             for (int i = 0; i < mPlacePictures.length; i++) {
                 mPlacePictures[i] = a.getDrawable(i);
             }
             a.recycle();
+   */
         }
 
         @Override
@@ -108,9 +110,15 @@ public class TileContentFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            int longitud = mPlacePictures.length;
+
             String nombre = ListaEspacios.listaEspacios.get(position).getNombre();
-            holder.picture.setImageDrawable(mPlacePictures[position % longitud]);
+
+            Context context = GlobalApplication.getAppContext();
+            String uri = ListaEspacios.listaEspacios.get(position).getNomImagen();
+            int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
+            Drawable imagen = ContextCompat.getDrawable(context, imageResource);
+
+            holder.picture.setImageDrawable(imagen);
             holder.name.setText(nombre);
         }
 

@@ -8,4 +8,7 @@
     <string name="tipos_espacio">Tipos Espacio</string>
     <string name="mapa">Mapa</string>
     <string name="buscar">Buscar</string>
+    <string name="str_reservas">Reservas en España</string>
+    <string name="str_rsvbios">Reservas de la Biosfera</string>
+    <string name="str_clasi_resetr">Clasificación de Reservas</string>
 </resources>

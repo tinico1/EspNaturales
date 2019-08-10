@@ -23,10 +23,10 @@
     android:background="@drawable/ic_ordesa"
     android:layoutMode="clipBounds"
     app:layout_insetEdge="top"
-    tools:context=".MainActivity">
+    tools:context=".TiposActivity">
 
     <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer"
+        android:id="@+id/drawer1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -34,7 +34,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <android.support.design.widget.CoordinatorLayout
-            android:id="@+id/main_content"
+            android:id="@+id/main_content1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -42,20 +42,20 @@
             tools:ignore="MissingConstraints">
 
             <android.support.design.widget.AppBarLayout
-                android:id="@+id/appbar"
+                android:id="@+id/appbar1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/header_clas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:paddingRight="8dp"
                     android:paddingBottom="8dp"
-                    android:text="@string/str_rsvbios"
+                    android:text="@string/str_clasi_resetr"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -84,7 +84,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <Button
-            android:id="@+id/btn_infor"
+            android:id="@+id/boton1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -93,13 +93,13 @@
             android:layout_marginBottom="16dp"
             android:background="@color/colorPrimary"
             android:fontFamily="sans-serif-condensed-light"
-            android:onClick="actInformacion"
-            android:text="@string/str_infor"
+            android:onClick="actBoton1"
+            android:text="Boton1"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/btn_reser"
+            android:id="@+id/boton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -108,8 +108,38 @@
             android:layout_marginBottom="16dp"
             android:background="@color/colorPrimary"
             android:fontFamily="sans-serif-condensed-light"
-            android:onClick="actReservas"
-            android:text="@string/str_reservas"
+            android:onClick="actBoton2"
+            android:text="Boton2"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/boton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="sans-serif-condensed-light"
+            android:onClick="actBoton3"
+            android:text="Boton2"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/boton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="sans-serif-condensed-light"
+            android:onClick="actBoton4"
+            android:text="Boton2"
             android:textColor="@color/white"
             android:textSize="24sp" />
 

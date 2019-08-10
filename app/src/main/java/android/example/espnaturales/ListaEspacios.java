@@ -41,8 +41,8 @@ public class ListaEspacios extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        mRegion = intent.getIntExtra(MainActivity.REGION, 0);
-        mTipoEspacio = intent.getIntExtra(MainActivity.TIPO, 0);
+        mRegion = intent.getIntExtra(SearchActivity.REGION, 0);
+        mTipoEspacio = intent.getIntExtra(SearchActivity.TIPO, 0);
         EspNatDbAccess dbAccess = EspNatDbAccess.getInstance(getApplicationContext());
         listaEspacios = dbAccess.getListaEspacios(mRegion, mTipoEspacio);
         // Obtener la lista de espacios
