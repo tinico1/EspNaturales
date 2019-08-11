@@ -17,4 +17,10 @@ public class TiposActivity extends AppCompatActivity {
 
     public void actBoton1(View view) {
     }
+
+    public void actBoton3(View view) {
+    }
+
+    public void actBoton4(View view) {
+    }
 }
