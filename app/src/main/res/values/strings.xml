@@ -11,4 +11,8 @@
     <string name="str_reservas">Reservas en España</string>
     <string name="str_rsvbios">Reservas de la Biosfera</string>
     <string name="str_clasi_resetr">Clasificación de Reservas</string>
+    <string name="btnTodas">Lista de todas las Reservas</string>
+    <string name="btnComunidad">Busqueda por Comunidad</string>
+    <string name="btnTipos">Busqueda por Tipo</string>
+    <string name="btnCombinada">Busqueda por Tipo y Comunidad</string>
 </resources>

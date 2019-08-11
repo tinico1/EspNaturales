@@ -93,8 +93,8 @@
             android:layout_marginBottom="16dp"
             android:background="@color/colorPrimary"
             android:fontFamily="sans-serif-condensed-light"
-            android:onClick="actBoton1"
-            android:text="Boton1"
+            android:onClick="actLista"
+            android:text="@string/btnTodas"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -108,8 +108,8 @@
             android:layout_marginBottom="16dp"
             android:background="@color/colorPrimary"
             android:fontFamily="sans-serif-condensed-light"
-            android:onClick="actBoton2"
-            android:text="Boton2"
+            android:onClick="actComunidad"
+            android:text="@string/btnComunidad"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -123,8 +123,8 @@
             android:layout_marginBottom="16dp"
             android:background="@color/colorPrimary"
             android:fontFamily="sans-serif-condensed-light"
-            android:onClick="actBoton3"
-            android:text="Boton2"
+            android:onClick="actTipo"
+            android:text="@string/btnTipos"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -138,8 +138,8 @@
             android:layout_marginBottom="16dp"
             android:background="@color/colorPrimary"
             android:fontFamily="sans-serif-condensed-light"
-            android:onClick="actBoton4"
-            android:text="Boton2"
+            android:onClick="actBusCombi"
+            android:text="@string/btnCombinada"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
