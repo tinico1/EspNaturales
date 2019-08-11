@@ -14,6 +14,8 @@ public class EspNatDbAccess {
     private SQLiteDatabase db;
     private static EspNatDbAccess instance;
 
+    private static boolean dbAbierta = false;
+
     static private Cursor c = null;
     private EspNatDbAccess(Context context) {
         this.sqLiteOpenHelper = new EspNatSQLHelper(context);
@@ -26,13 +28,18 @@ public class EspNatDbAccess {
     }
 
     public void open() {
-        this.db = this.sqLiteOpenHelper.getReadableDatabase();
+        if (!dbAbierta) {
+            this.db = this.sqLiteOpenHelper.getReadableDatabase();
+            dbAbierta = true;
+        }
+
     }
 
     public void close() {
-        if(this.db != null) {
+        if ((this.db != null) && dbAbierta) {
             this.db.close();
         }
+        dbAbierta = false;
     }
 
 

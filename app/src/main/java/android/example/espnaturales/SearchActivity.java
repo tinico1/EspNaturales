@@ -91,11 +91,13 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onDestroy() {
         dbAccess.close();
         super.onDestroy();
     }
+
 
     public void actSearch(View view) {
         Intent intent = new Intent(this, ListaEspacios.class);
