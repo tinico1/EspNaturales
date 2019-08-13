@@ -34,10 +34,12 @@ public class ListaEspacios extends AppCompatActivity {
     private int mTipoEspacio = 0;
     private DrawerLayout mDrawerLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_espacios);
+
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -58,7 +60,7 @@ public class ListaEspacios extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         // Create Navigation drawer and inlfate layout
         NavigationView navigationView = findViewById(R.id.nav_view);
-        mDrawerLayout = findViewById(R.id.drawer);
+        mDrawerLayout = findViewById(R.id.infor_drawer);
         // Adding menu icon to Toolbar
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {

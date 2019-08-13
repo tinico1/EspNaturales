@@ -15,4 +15,5 @@
     <string name="btnComunidad">Busqueda por Comunidad</string>
     <string name="btnTipos">Busqueda por Tipo</string>
     <string name="btnCombinada">Busqueda por Tipo y Comunidad</string>
+    <string name="str_informes">Informes</string>
 </resources>

@@ -8,20 +8,28 @@ public class EspacioNatural {
     private int idTipo;
 
     private String nomImagen;
-
-
     private String description;
-
-
     private String descCorta;
 
-    public EspacioNatural(int id, String nombre, int idTipo, String descCorta, String description, String nomImagen) {
+    private String nomIcono;
+
+    EspacioNatural(int id, String nombre, int idTipo, String descCorta, String description, String nomImagen, String nomIcono) {
         this.id = id;
         this.nombre = nombre;
         this.idTipo = idTipo;
         this.descCorta = descCorta;
         this.description = null;
         this.nomImagen = nomImagen;
+        this.nomIcono = nomIcono;
+
+    }
+
+    public String getNomIcono() {
+        return nomIcono;
+    }
+
+    public void setNomIcono(String nomIcono) {
+        this.nomIcono = nomIcono;
     }
 
 
@@ -49,7 +57,7 @@ public class EspacioNatural {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 

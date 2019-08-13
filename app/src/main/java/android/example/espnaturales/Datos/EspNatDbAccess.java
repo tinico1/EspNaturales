@@ -17,6 +17,7 @@ public class EspNatDbAccess {
     private static boolean dbAbierta = false;
 
     static private Cursor c = null;
+
     private EspNatDbAccess(Context context) {
         this.sqLiteOpenHelper = new EspNatSQLHelper(context);
     }
@@ -46,6 +47,8 @@ public class EspNatDbAccess {
     // Obtener Comunidades
     public List<StringWithTag> getComunidades() {
 
+        open();
+
         List<StringWithTag> list =  new ArrayList<StringWithTag>();
         c = db.rawQuery("SELECT * from T_COMUNIDADES  ", new String[]{});
         StringWithTag string = new StringWithTag("", 0);
@@ -54,8 +57,10 @@ public class EspNatDbAccess {
             StringWithTag stringWithTag = new StringWithTag(c.getString(1), c.getInt(0));
             list.add( stringWithTag);
         }
+        close();
         return list;
     }
+
 
     // Obtener Tipos
     public List<StringWithTag> getTiposRERB(int idcomunidad) {
@@ -73,6 +78,7 @@ public class EspNatDbAccess {
         }
 
         List<StringWithTag> list =  new ArrayList<StringWithTag>();
+        open();
         c = db.rawQuery(sql, new String[]{});
         StringWithTag stringWithTag = new StringWithTag("", 0);
         list.add(stringWithTag);
@@ -80,6 +86,7 @@ public class EspNatDbAccess {
             stringWithTag = new StringWithTag(c.getString(1), c.getInt(0));
             list.add(stringWithTag);
         }
+        close();
         return list;
     }
 
@@ -87,16 +94,16 @@ public class EspNatDbAccess {
         String sql;
 
         if ((idcomunidad != 0) && (idtipo != 0)) {
-            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, esp.NOM_IMAGEN FROM T_ESPACIO esp, R_COM_ESP rcom WHERE esp.COD_TIPO_RERB = " + idtipo + " and rcom.COD_COMUNIDAD = " + idcomunidad + " and rcom.COD_ESPACIO = esp.COD_ESPACIO";
+            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, ifnull(esp.NOM_IMAGEN, trfb.IMAGEN_REFB), trfb.ICONO_RFEB FROM T_ESPACIO esp, R_COM_ESP rcom, T_TIPO_RERB trfb WHERE esp.COD_TIPO_RERB = " + idtipo + " and rcom.COD_COMUNIDAD = " + idcomunidad + " and rcom.COD_ESPACIO = esp.COD_ESPACIO and trfb.COD_TIPO_RERB = esp.COD_TIPO_RERB";
         } else if ((idcomunidad != 0) && (idtipo == 0)) {
-            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, esp.NOM_IMAGEN FROM T_ESPACIO esp, R_COM_ESP rcom WHERE  rcom.COD_COMUNIDAD = " + idcomunidad + " and rcom.COD_ESPACIO = esp.COD_ESPACIO";
+            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, ifnull(esp.NOM_IMAGEN, trfb.IMAGEN_REFB) , trfb.ICONO_RFEB  FROM T_ESPACIO esp, R_COM_ESP rcom, T_TIPO_RERB trfb WHERE  rcom.COD_COMUNIDAD =  " + idcomunidad + " and rcom.COD_ESPACIO = esp.COD_ESPACIO and trfb.COD_TIPO_RERB = esp.COD_TIPO_RERB";
         } else if ((idcomunidad == 0) && (idtipo != 0)) {
-            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, esp.NOM_IMAGEN  FROM T_ESPACIO esp  WHERE esp.COD_TIPO_RERB = " + idtipo;
+            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, ifnull(esp.NOM_IMAGEN, trfb.IMAGEN_REFB), trfb.ICONO_RFEB  NOM_IMAGEN  FROM T_ESPACIO esp, T_TIPO_RERB trfb  WHERE trfb.COD_TIPO_RERB = esp.COD_TIPO_RERB and esp.COD_TIPO_RERB = " + idtipo;
         } else {
-            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, esp.NOM_IMAGEN  FROM T_ESPACIO esp ";
+            sql = "SELECT DISTINCT esp.COD_ESPACIO, esp.NOM_ESPACIO, esp.COD_TIPO_RERB, esp.DESC_ESPACIO, ifnull(esp.NOM_IMAGEN, trfb.IMAGEN_REFB), trfb.ICONO_RFEB  NOM_IMAGEN  FROM T_ESPACIO esp, T_TIPO_RERB trfb  WHERE trfb.COD_TIPO_RERB = esp.COD_TIPO_RERB  ";
         }
 
-
+        open();
         List<EspacioNatural> list = new ArrayList<EspacioNatural>();
         c = db.rawQuery(sql, new String[]{});
 
@@ -107,14 +114,17 @@ public class EspNatDbAccess {
                     c.getInt(2),
                     c.getString(3),
                     c.getString(3),
-                    c.getString(4));
+                    c.getString(4),
+                    c.getString(5));
             list.add(espacioNatural);
         }
+        close();
         return list;
 
     }
 
     public EspacioNatural getSetdescription(EspacioNatural espacioNatural) {
+        open();
         String des = espacioNatural.getDescription();
 
         if (des == null) {
@@ -124,6 +134,25 @@ public class EspNatDbAccess {
                 espacioNatural.setDescription(c.getString(0));
             }
         }
+        close();
         return espacioNatural;
     }
+
+
+    // Obtener Comunidades
+    public List<InformesEspacios> getInformes() {
+
+        open();
+
+        List<InformesEspacios> list = new ArrayList<InformesEspacios>();
+        c = db.rawQuery("SELECT id_infor, nom_infor, desc_infor from T_INFORMES  ", new String[]{});
+
+        while (c.moveToNext()) {
+            InformesEspacios informe = new InformesEspacios(c.getInt(0), c.getString(1), c.getString(2));
+            list.add(informe);
+        }
+        close();
+        return list;
+    }
+
 }

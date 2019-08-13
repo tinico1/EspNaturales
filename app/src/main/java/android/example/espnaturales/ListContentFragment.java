@@ -19,10 +19,10 @@ package android.example.espnaturales;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -83,17 +83,10 @@ public class ListContentFragment extends Fragment {
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Set numbers of List in RecyclerView.
 
-        private final Drawable[] mPlaceAvators;
 
         public ContentAdapter(Context context) {
             Resources resources = context.getResources();
 
-            TypedArray a = resources.obtainTypedArray(R.array.place_avator);
-            mPlaceAvators = new Drawable[a.length()];
-            for (int i = 0; i < mPlaceAvators.length; i++) {
-                mPlaceAvators[i] = a.getDrawable(i);
-            }
-            a.recycle();
         }
 
         @Override
@@ -103,7 +96,14 @@ public class ListContentFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.avator.setImageDrawable(mPlaceAvators[position % mPlaceAvators.length]);
+
+
+            Context context = GlobalApplication.getAppContext();
+            String uri = ListaEspacios.listaEspacios.get(position).getNomIcono();
+            int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
+            Drawable imagen = ContextCompat.getDrawable(context, imageResource);
+
+            holder.avator.setImageDrawable(imagen);
             holder.name.setText(ListaEspacios.listaEspacios.get(position).getNombre());
             holder.description.setText(ListaEspacios.listaEspacios.get(position).getDescCorta());
         }
