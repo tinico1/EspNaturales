@@ -5,15 +5,23 @@
 
     <application
         android:name=".GlobalApplication"
-        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".InformeActivity" />
+        <activity android:name=".InfDetActivity"
+            android:parentActivityName=".InformeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".InformeActivity" />
+        </activity>
+
         <activity android:name=".TiposActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

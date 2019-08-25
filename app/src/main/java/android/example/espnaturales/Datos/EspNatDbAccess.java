@@ -55,7 +55,7 @@ public class EspNatDbAccess {
         list.add( string);
         while (c.moveToNext()) {
             StringWithTag stringWithTag = new StringWithTag(c.getString(1), c.getInt(0));
-            list.add( stringWithTag);
+            list.add(stringWithTag);
         }
         close();
         return list;
@@ -140,15 +140,15 @@ public class EspNatDbAccess {
 
 
     // Obtener Comunidades
-    public List<InformesEspacios> getInformes() {
+    public List<InformesReservas> getInformes() {
 
         open();
 
-        List<InformesEspacios> list = new ArrayList<InformesEspacios>();
+        List<InformesReservas> list = new ArrayList<InformesReservas>();
         c = db.rawQuery("SELECT id_infor, nom_infor, desc_infor from T_INFORMES  ", new String[]{});
 
         while (c.moveToNext()) {
-            InformesEspacios informe = new InformesEspacios(c.getInt(0), c.getString(1), c.getString(2));
+            InformesReservas informe = new InformesReservas(c.getInt(0), c.getString(1), c.getString(2));
             list.add(informe);
         }
         close();

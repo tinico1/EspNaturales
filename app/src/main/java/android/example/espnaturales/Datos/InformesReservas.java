@@ -1,13 +1,13 @@
 package android.example.espnaturales.Datos;
 
-public class InformesEspacios {
+public class InformesReservas {
 
 
     private int idInforme;
     private String tituloInforme;
     private String textoInforme;
 
-    InformesEspacios(int idInforme, String tituloInforme, String textoInforme) {
+    InformesReservas(int idInforme, String tituloInforme, String textoInforme) {
         this.idInforme = idInforme;
         this.tituloInforme = tituloInforme;
         this.textoInforme = textoInforme;

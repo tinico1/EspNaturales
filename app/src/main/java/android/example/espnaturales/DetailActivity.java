@@ -41,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         EspacioNatural espacioNatural;
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_detail);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -73,7 +74,5 @@ public class DetailActivity extends AppCompatActivity {
         Drawable imagen = ContextCompat.getDrawable(getApplicationContext(), imageResource);
         placePicutre.setImageDrawable(imagen);
 
-
-        //  placePictures.recycle();
     }
 }
