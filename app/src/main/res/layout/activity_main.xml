@@ -20,7 +20,7 @@
     android:id="@+id/constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_ordesa"
+    android:background="@drawable/ic_esp33"
     android:layoutMode="clipBounds"
     app:layout_insetEdge="top"
     tools:context=".MainActivity">

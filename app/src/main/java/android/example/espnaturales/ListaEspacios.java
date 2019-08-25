@@ -87,14 +87,14 @@ public class ListaEspacios extends AppCompatActivity {
                     }
                 });
         // Adding Floating Action Button to bottom right of main view
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Snackbar.make(v, "Hello Snackbar!",
                         Snackbar.LENGTH_LONG).show();
             }
-        });
+        });*/
 
     }
 
