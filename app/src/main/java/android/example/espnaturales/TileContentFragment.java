@@ -19,10 +19,9 @@ package android.example.espnaturales;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.example.espnaturales.Utiles.Tools;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -113,12 +112,7 @@ public class TileContentFragment extends Fragment {
 
             String nombre = ListaEspacios.listaEspacios.get(position).getNombre();
 
-            Context context = GlobalApplication.getAppContext();
-            String uri = ListaEspacios.listaEspacios.get(position).getNomImagen();
-            int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
-            Drawable imagen = ContextCompat.getDrawable(context, imageResource);
-
-            holder.picture.setImageDrawable(imagen);
+            Tools.getTools().setImage(ListaEspacios.listaEspacios.get(position).getNomImagen(), holder.picture);
             holder.name.setText(nombre);
         }
 

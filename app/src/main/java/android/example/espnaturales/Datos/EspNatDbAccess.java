@@ -30,7 +30,7 @@ public class EspNatDbAccess {
 
     public void open() {
         if (!dbAbierta) {
-            this.db = this.sqLiteOpenHelper.getReadableDatabase();
+            this.db = this.sqLiteOpenHelper.getWritableDatabase();
             dbAbierta = true;
         }
 
@@ -139,7 +139,7 @@ public class EspNatDbAccess {
     }
 
 
-    // Obtener Comunidades
+    // Obtener Informes
     public List<InformesReservas> getInformes() {
 
         open();

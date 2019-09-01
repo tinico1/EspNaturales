@@ -21,13 +21,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.example.espnaturales.Datos.EspacioNatural;
-import android.graphics.drawable.Drawable;
+import android.example.espnaturales.Utiles.Tools;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,18 +40,10 @@ public class ListContentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(
-                R.layout.recycler_view, container, false);
-        ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
 
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                linearLayoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        FragmentActivity activity = getActivity();
+
+        RecyclerView recyclerView = Tools.getTools().creaRecycler( inflater,  container,  activity,  R.layout.recycler_view);
         return recyclerView;
     }
 
@@ -109,13 +98,9 @@ public class ListContentFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 
-
-            Context context = GlobalApplication.getAppContext();
             String uri = ListaEspacios.listaEspacios.get(position).getNomIcono();
-            int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
-            Drawable imagen = ContextCompat.getDrawable(context, imageResource);
 
-            holder.avator.setImageDrawable(imagen);
+            Tools.getTools().setImage(uri, holder.avator);
             holder.name.setText(ListaEspacios.listaEspacios.get(position).getNombre());
             holder.description.setText(ListaEspacios.listaEspacios.get(position).getDescCorta());
         }

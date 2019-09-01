@@ -7,6 +7,8 @@ import android.example.espnaturales.Datos.InformesReservas;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,7 +36,9 @@ public class InformeActivity extends AppCompatActivity {
         listaInformes = dbAccess.getInformes();
 
         recyclerView = findViewById(R.id.infor_recycler);
-
+        // specify an adapter with the list to show
+        mAdapter = new InfoAdapter(listaInformes);
+        recyclerView.setAdapter(mAdapter);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -43,12 +47,15 @@ public class InformeActivity extends AppCompatActivity {
         // use a linear layout manager
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // specify an adapter with the list to show
-        mAdapter = new InfoAdapter(listaInformes);
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setHasFixedSize(true);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                ((LinearLayoutManager) recyclerView.getLayoutManager()).getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-        // Obtener la lista de espacios
+
 
 
     }

@@ -19,10 +19,9 @@ package android.example.espnaturales;
 import android.content.res.Resources;
 import android.example.espnaturales.Datos.EspNatDbAccess;
 import android.example.espnaturales.Datos.EspacioNatural;
-import android.graphics.drawable.Drawable;
+import android.example.espnaturales.Utiles.Tools;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -60,7 +59,6 @@ public class DetailActivity extends AppCompatActivity {
 
         collapsingToolbar.setTitle(espacioNatural.getNombre());
 
-
         TextView placeDetail = findViewById(R.id.place_detail);
         placeDetail.setText(espacioNatural.getDescription());
 
@@ -69,10 +67,7 @@ public class DetailActivity extends AppCompatActivity {
         placeLocation.setText(placeLocations[pos % placeLocations.length]);
 
         ImageView placePicutre = findViewById(R.id.image);
-        String uri = espacioNatural.getNomImagen();
-        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-        Drawable imagen = ContextCompat.getDrawable(getApplicationContext(), imageResource);
-        placePicutre.setImageDrawable(imagen);
+        Tools.getTools().setImage(espacioNatural.getNomImagen(), placePicutre);
 
     }
 }
