@@ -1,5 +1,7 @@
 package android.example.espnaturales.Datos;
 
+import android.example.espnaturales.GlobalApplication;
+
 public class EspacioNatural {
 
 
@@ -7,11 +9,18 @@ public class EspacioNatural {
     private String nombre;
     private int idTipo;
 
+
+
     private String nomImagen;
     private String description;
     private String descCorta;
 
     private String nomIcono;
+
+    private String ubicacion = null;
+    private String url = null;
+    private float longitud = 0;
+    private float latitud = 0;
 
     EspacioNatural(int id, String nombre, int idTipo, String descCorta, String description, String nomImagen, String nomIcono) {
         this.id = id;
@@ -73,6 +82,28 @@ public class EspacioNatural {
     public String toString() {
         return nombre;
     }
+    public float getLongitud() {
+        if(longitud ==0)
+            longitud = EspNatDbAccess.getInstance(GlobalApplication.getAppContext()).getLongitud(id);
+        return longitud;
+    }
 
+    public float getLatitud() {
+        if(latitud ==0)
+            latitud = EspNatDbAccess.getInstance(GlobalApplication.getAppContext()).getLatitud(id);
+        return latitud;
+    }
+
+
+    public String getUbicacion() {
+        if(ubicacion == null)
+            ubicacion = EspNatDbAccess.getInstance(GlobalApplication.getAppContext()).getUbicacion(id);
+        return ubicacion;
+    }
+    public String getURL() {
+        if(url == null)
+            url = EspNatDbAccess.getInstance(GlobalApplication.getAppContext()).getURL(id);
+        return url;
+    }
 
 }

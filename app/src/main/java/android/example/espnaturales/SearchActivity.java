@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -17,8 +18,11 @@ public class SearchActivity extends AppCompatActivity {
 
     final static String TIPO = "TIPO";
     final static String REGION = "REGION";
+
     Spinner spnComunidades;
     Spinner spnTipos;
+    Button btnBuscar;
+
     EspNatDbAccess dbAccess;
     private int mRegion = 0;
     private int mTipoEspacio = 0;
@@ -27,25 +31,34 @@ public class SearchActivity extends AppCompatActivity {
         List<StringWithTag> list;
 
         list = dbAccess.getTiposRERB(idComunidad);
-        ArrayAdapter<StringWithTag> adp1 = new ArrayAdapter<StringWithTag>(this,
-                android.R.layout.simple_list_item_1, list);
-        adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnTipos.setAdapter(adp1);
 
-        spnTipos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                StringWithTag str = (StringWithTag) spnTipos.getItemAtPosition(position);
+        if(list.size()==1){
+            Toast.makeText(getApplicationContext(), "No hay Reservas en esta comunidad", Toast.LENGTH_LONG).show();
+            btnBuscar.setEnabled(false);
+        }
 
-                mTipoEspacio = str.getId();
-            }
+        else {
+            btnBuscar.setEnabled(true);
+            ArrayAdapter<StringWithTag> adp1 = new ArrayAdapter<StringWithTag>(this,
+                    android.R.layout.simple_list_item_1, list);
+            adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spnTipos.setAdapter(adp1);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            spnTipos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    StringWithTag str = (StringWithTag) spnTipos.getItemAtPosition(position);
 
-                mTipoEspacio = 0;
-            }
-        });
+                    mTipoEspacio = str.getId();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                    mTipoEspacio = 0;
+                }
+            });
+        }
     }
 
     void fillSpnComunidades(final EspNatDbAccess dbAccess) {
@@ -84,6 +97,7 @@ public class SearchActivity extends AppCompatActivity {
 
         spnComunidades = findViewById(R.id.spnComunidades);
         spnTipos = findViewById(R.id.spinnerTipos);
+        btnBuscar = findViewById(R.id.button);
 
         dbAccess = EspNatDbAccess.getInstance(getApplicationContext());
         dbAccess.open();

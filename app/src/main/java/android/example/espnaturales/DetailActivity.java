@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.util.Linkify;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +35,15 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "ID";
     public static final String EXTRA_POSITION = "POSITION";
+
+    EspacioNatural getEspacio(int id) {
+        int size = ListaEspacios.listaEspacios.size();
+        for (int i =0; i< size; i++)
+            if (ListaEspacios.listaEspacios.get(i).getId() == id)
+                return ListaEspacios.listaEspacios.get(i);
+        return null;
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         int id = getIntent().getIntExtra(EXTRA_ID, 0);
         int pos = getIntent().getIntExtra(EXTRA_POSITION, 0);
 
-        espacioNatural = ListaEspacios.listaEspacios.get(pos);
+        espacioNatural = getEspacio(id);
         espacioNatural = EspNatDbAccess.getInstance(getApplicationContext()).getSetdescription(espacioNatural);
         Resources resources = getResources();
 
@@ -62,12 +72,16 @@ public class DetailActivity extends AppCompatActivity {
         TextView placeDetail = findViewById(R.id.place_detail);
         placeDetail.setText(espacioNatural.getDescription());
 
-        String[] placeLocations = resources.getStringArray(R.array.place_locations);
+
         TextView placeLocation = findViewById(R.id.place_location);
-        placeLocation.setText(placeLocations[pos % placeLocations.length]);
+        placeLocation.setText(espacioNatural.getUbicacion());
 
         ImageView placePicutre = findViewById(R.id.image);
         Tools.getTools().setImage(espacioNatural.getNomImagen(), placePicutre);
+
+        final TextView reservaURL = (TextView) findViewById(R.id.place_URL);
+        reservaURL.setText(espacioNatural.getURL());
+        Linkify.addLinks(reservaURL, Linkify.WEB_URLS);
 
     }
 }

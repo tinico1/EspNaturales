@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.util.Linkify;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,7 +42,13 @@ public class InfDetActivity extends AppCompatActivity {
         TextView texto = findViewById(R.id.inf_texto_detail);
         texto.setText(informesReservas.getTextoInforme());
 
+        final TextView infoURL = (TextView) findViewById(R.id.url_infor);
+        infoURL.setText(informesReservas.getURLInforme());
+        Linkify.addLinks(infoURL, Linkify.WEB_URLS);
+
+
         collapsingToolbar.setTitle(informesReservas.getTituloInforme());
+
    /*
         ImageView placePicutre = findViewById(R.id.image);
         String uri = espacioNatural.getNomImagen();

@@ -85,6 +85,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Detalle" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/md_keylines"
+                android:text="URL"
+                android:textColor="?attr/colorAccent"
+                android:textSize="@dimen/article_titles" />
+
+            <TextView
+                android:id="@+id/url_infor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="URL" />
 
 
         </LinearLayout>

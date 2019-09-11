@@ -16,4 +16,8 @@
     <string name="btnTipos">Busqueda por Tipo</string>
     <string name="btnCombinada">Busqueda por Tipo y Comunidad</string>
     <string name="str_informes">Informes</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="descripcion">Descripción</string>
+    <string name="google_maps_key">AIzaSyAr_J9oMum7hBMvBDqu0WmntnEfyEikyAU</string>
+    <string name="url">URL</string>
 </resources>

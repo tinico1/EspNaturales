@@ -40,10 +40,12 @@ public class ListaEspacios extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        mRegion = intent.getIntExtra(SearchActivity.REGION, 0);
-        mTipoEspacio = intent.getIntExtra(SearchActivity.TIPO, 0);
-        EspNatDbAccess dbAccess = EspNatDbAccess.getInstance(getApplicationContext());
-        listaEspacios = dbAccess.getListaEspacios(mRegion, mTipoEspacio);
+        mRegion = intent.getIntExtra(SearchActivity.REGION, -1);
+        mTipoEspacio = intent.getIntExtra(SearchActivity.TIPO, -1);
+        if(mRegion!=-1) {
+            EspNatDbAccess dbAccess = EspNatDbAccess.getInstance(getApplicationContext());
+            listaEspacios = dbAccess.getListaEspacios(mRegion, mTipoEspacio);
+        }
         // Obtener la lista de espacios
 
         // Adding Toolbar to Main screen
@@ -99,8 +101,9 @@ public class ListaEspacios extends AppCompatActivity {
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new ListContentFragment(), "List");
+        adapter.addFragment(new ListContentFragment(), "Lista");
         adapter.addFragment(new TileContentFragment(), "Tile");
+        adapter.addFragment(new MapFragment(), "Mapa");
         viewPager.setAdapter(adapter);
     }
 

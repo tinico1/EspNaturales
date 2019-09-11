@@ -138,6 +138,69 @@ public class EspNatDbAccess {
         return espacioNatural;
     }
 
+    public  float getLongitud(int id) {
+
+        float longitud = 0f;
+        open();
+
+        c = db.rawQuery("SELECT LONG_ESPACIO from T_ESPACIO WHERE cod_espacio = " + id, new String[]{});
+        while (c.moveToNext()) {
+            longitud = c.getFloat(0);
+        }
+        close();
+        return longitud;
+    }
+
+    public  float getLatitud(int id) {
+
+        float latitud = 0f;
+        open();
+
+        c = db.rawQuery("SELECT LAT_ESPACIO from T_ESPACIO WHERE cod_espacio = " + id, new String[]{});
+        while (c.moveToNext()) {
+            latitud = c.getFloat(0);
+        }
+        close();
+        return latitud;
+    }
+
+    public  String getUbicacion(int id) {
+
+        String ubicacion = "";
+        boolean primero = true;
+        open();
+
+
+        c = db.rawQuery("SELECT c.NOM_COMUNIDAD FROM R_COM_ESP r, T_COMUNIDADES c WHERE c.COD_COMUNIDAD = r.COD_COMUNIDAD AND COD_ESPACIO = " + id, new String[]{});
+        while (c.moveToNext()) {
+            if (primero)
+                ubicacion= c.getString(0);
+
+            else
+                ubicacion = ubicacion + ", " + c.getString(0);
+
+            primero = false;
+        }
+        close();
+        return ubicacion;
+    }
+
+    //Coje la URL de la reserva de la biosfera
+    public String getURL(int id){
+        String url = "";
+
+        open();
+        c = db.rawQuery("SELECT URL FROM T_ESPACIO WHERE COD_ESPACIO =" + id, new String[]{});
+
+        while (c.moveToNext()) {
+            url = c.getString(0);
+        }
+
+
+        close();
+        return url;
+
+    }
 
     // Obtener Informes
     public List<InformesReservas> getInformes() {
@@ -145,10 +208,10 @@ public class EspNatDbAccess {
         open();
 
         List<InformesReservas> list = new ArrayList<InformesReservas>();
-        c = db.rawQuery("SELECT id_infor, nom_infor, desc_infor from T_INFORMES  ", new String[]{});
+        c = db.rawQuery("SELECT id_infor, nom_infor, desc_infor, url_infor from T_INFORMES  ", new String[]{});
 
         while (c.moveToNext()) {
-            InformesReservas informe = new InformesReservas(c.getInt(0), c.getString(1), c.getString(2));
+            InformesReservas informe = new InformesReservas(c.getInt(0), c.getString(1), c.getString(2), c.getString(3));
             list.add(informe);
         }
         close();

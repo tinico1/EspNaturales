@@ -51,13 +51,13 @@ public class ListContentFragment extends Fragment {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView avator;
         public TextView name;
-        public TextView description;
+        public TextView ubicacion;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_list, parent, false));
             avator = itemView.findViewById(R.id.list_avatar);
             name = itemView.findViewById(R.id.list_title);
-            description = itemView.findViewById(R.id.list_desc);
+            ubicacion = itemView.findViewById(R.id.list_desc);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +102,9 @@ public class ListContentFragment extends Fragment {
 
             Tools.getTools().setImage(uri, holder.avator);
             holder.name.setText(ListaEspacios.listaEspacios.get(position).getNombre());
-            holder.description.setText(ListaEspacios.listaEspacios.get(position).getDescCorta());
+            holder.ubicacion.setText(ListaEspacios.listaEspacios.get(position).getUbicacion());
+
+
         }
 
 

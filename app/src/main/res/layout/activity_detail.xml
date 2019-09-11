@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/article_keylines"
+            android:paddingStart="@dimen/article_keylines"
             android:paddingTop="@dimen/md_keylines"
             android:paddingRight="@dimen/md_keylines">
 
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/md_keylines"
-                android:text="Descripción"
+                android:text="@string/descripcion"
                 android:textColor="?attr/colorAccent"
                 android:textSize="@dimen/article_titles" />
 
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/md_keylines"
                 android:layout_marginBottom="@dimen/md_keylines"
-                android:text="Localización"
+                android:text="@string/ubicacion"
                 android:textColor="?attr/colorAccent"
                 android:textSize="@dimen/article_titles" />
 
@@ -99,7 +99,25 @@
                 android:id="@+id/place_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Localizacion" />
+                tools:text="Ubicación" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/md_keylines"
+                android:layout_marginBottom="@dimen/md_keylines"
+                android:text="@string/url"
+                android:textColor="?attr/colorAccent"
+                android:textSize="@dimen/article_titles" />
+
+            <TextView
+                android:id="@+id/place_URL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web" />
+
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
