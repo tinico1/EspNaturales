@@ -30,7 +30,7 @@ public class ListaEspacios extends AppCompatActivity {
     private int mRegion = 0;
     private int mTipoEspacio = 0;
     private DrawerLayout mDrawerLayout;
-
+    public static final String urlForm = "url formulario";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class ListaEspacios extends AppCompatActivity {
 
 
         // Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         mRegion = intent.getIntExtra(SearchActivity.REGION, -1);
         mTipoEspacio = intent.getIntExtra(SearchActivity.TIPO, -1);
         if(mRegion!=-1) {
@@ -79,6 +79,16 @@ public class ListaEspacios extends AppCompatActivity {
                         menuItem.setChecked(true);
 
                         // TODO: handle navigation
+                        int id = menuItem.getItemId();
+                        if(id == R.id.formulario){
+                            Intent formulario = new Intent(getApplicationContext(), CuestionarioActivity.class);
+                            formulario.putExtra(urlForm,"https://docs.google.com/forms/d/e/1FAIpQLScH1X3_7lf15peO8-Imq8px44VKxeNntS45dCQeM7Q69LUwtQ/viewform");
+                            startActivity(formulario);
+                        } else{
+                            Intent resultados = new Intent(getApplicationContext(), CuestionarioActivity.class);
+                            resultados.putExtra(urlForm,"https://docs.google.com/forms/d/e/1FAIpQLScH1X3_7lf15peO8-Imq8px44VKxeNntS45dCQeM7Q69LUwtQ/viewanalytics");
+                            startActivity(resultados);
+                        }
 
                         // Closing drawer on item click
                         mDrawerLayout.closeDrawers();
