@@ -18,11 +18,13 @@
         <item
             android:icon="@drawable/ic_favorite"
             android:tint="@color/button_grey"
-            android:title="One" />
+            android:id="@+id/formulario"
+            android:title="Rellenar Formulario" />
         <item
             android:icon="@drawable/ic_favorite"
             android:tint="@color/button_grey"
-            android:title="Two" />
+            android:id="@+id/resultados"
+            android:title="Ver resultados de encuestas" />
         <item
             android:icon="@drawable/ic_favorite"
             android:tint="@color/button_grey"
