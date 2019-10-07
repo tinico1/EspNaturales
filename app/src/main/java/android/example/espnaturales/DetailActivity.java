@@ -16,17 +16,23 @@
 
 package android.example.espnaturales;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.example.espnaturales.Datos.EspNatDbAccess;
 import android.example.espnaturales.Datos.EspacioNatural;
 import android.example.espnaturales.Utiles.Tools;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.util.Linkify;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import static android.example.espnaturales.ListaEspacios.urlForm;
 
 /**
  * Provides UI for the Detail page with Collapsing Toolbar.
@@ -35,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "ID";
     public static final String EXTRA_POSITION = "POSITION";
+    static private boolean res = false;
 
     EspacioNatural getEspacio(int id) {
         int size = ListaEspacios.listaEspacios.size();
@@ -52,7 +59,19 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_detail);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!res)
+                    dialogoEncuesta();
+                else
+                    backPressed();
+            }
+        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Set Collapsing Toolbar layout to the screen
         CollapsingToolbarLayout collapsingToolbar =
@@ -82,6 +101,44 @@ public class DetailActivity extends AppCompatActivity {
         final TextView reservaURL = (TextView) findViewById(R.id.place_URL);
         reservaURL.setText(espacioNatural.getURL());
         Linkify.addLinks(reservaURL, Linkify.WEB_URLS);
+
+    }
+    private void dialogoEncuesta () {
+
+
+        new AlertDialog.Builder(this)
+                .setTitle("Nos das tu Opinión?")
+                .setMessage("Ayuda a otros usuarios rellenando una encuesta")
+                .setPositiveButton("De Acuerdo", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent formulario = new Intent(getApplicationContext(), CuestionarioActivity.class);
+                        formulario.putExtra(urlForm, "https://docs.google.com/forms/d/e/1FAIpQLScH1X3_7lf15peO8-Imq8px44VKxeNntS45dCQeM7Q69LUwtQ/viewform");
+                        startActivity(formulario);
+                        res = true;
+
+                    }
+                })
+                .setNegativeButton("Ahora no", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        backPressed();
+                    }
+                }).show();
+
+    }
+
+    public void backPressed() {
+        super.onBackPressed();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (!res)
+            dialogoEncuesta();
+        else
+            backPressed();
 
     }
 }
